@@ -1,0 +1,33 @@
+{
+  "name": "anton_robie_bot",
+  "version": "1.0.0",
+  "description": "telegram bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snusnumrick/anton_robie_bot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": "Anton Treskunov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snusnumrick/anton_robie_bot/issues"
+  },
+  "homepage": "https://github.com/snusnumrick/anton_robie_bot#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.1",
+    "node-telegram-bot-api": "^0.61.0",
+    "openai": "^3.2.1",
+    "replicate-js": "github:nicholascelestin/replicate-js"
+  }
+}
