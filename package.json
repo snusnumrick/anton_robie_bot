@@ -22,12 +22,18 @@
   },
   "homepage": "https://github.com/snusnumrick/anton_robie_bot#readme",
   "dependencies": {
+    "@google-cloud/speech": "^5.4.0",
+    "@google-cloud/translate": "^7.2.0",
+    "bing-chat": "^0.2.3",
     "cheerio": "^1.0.0-rc.12",
-    "dotenv": "^16.0.3",
+    "dotenv-safe": "^8.2.0",
     "fs": "^0.0.1-security",
     "node-fetch": "^3.3.1",
     "node-telegram-bot-api": "^0.61.0",
     "openai": "^3.2.1",
     "replicate-js": "github:nicholascelestin/replicate-js"
+  },
+  "devDependencies": {
+    "prettier": "2.8.5"
   }
 }
