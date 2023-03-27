@@ -20,7 +20,7 @@ import bing from "./bing.js";
 
 dotenv.config({ override: true });
 
-let CONTEXT_SIZE = 8000;
+let CONTEXT_SIZE = 6000;
 let MAX_TOKENS = 2000;
 
 let OPENAI_PRICE = 0.002;
@@ -75,6 +75,9 @@ const trimContext = (context) => {
 
 bot.on("message", async (msg) => {
   console.log(msg);
+  if (msg.from.username !== "Snusnumrick") {
+    return;
+  }
   const chatId = msg.chat.id;
   let text = msg.text?.toLowerCase() ?? "";
 
@@ -496,11 +499,20 @@ async function textToBing(chatId, msg, language_code) {
   }, 1000);
   const response_text = await bing(msg, language_code);
   clearInterval(intervalId);
-  last[chatId] = response_text;
-  messages[chatId].push({ role: "assistant", content: response_text });
+
+  // replace **..** in response_text with <b> ... </b>
+  let html_text = response_text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+  // replace markdown links with html links
+  html_text = html_text.replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2'>$1</a>");
+
+  // replace **..** in response_text with just ...
+  const plain_text = response_text.replace(/\*\*(.*?)\*\*/g, "$1");
+
+  last[chatId] = plain_text;
+  messages[chatId].push({ role: "assistant", content: plain_text });
   writeContext(messages);
   bot
-    .sendMessage(chatId, response_text)
+    .sendMessage(chatId, html_text, { parse_mode: "HTML" })
     .then()
     .catch((e) => {
       console.error(e.message);
