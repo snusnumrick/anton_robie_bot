@@ -74,7 +74,7 @@ const trimContext = (context) => {
 };
 
 bot.on("message", async (msg) => {
-  console.log(msg);
+  // console.log(msg);
   if (msg.from.username !== "Snusnumrick") {
     return;
   }
@@ -164,7 +164,7 @@ const getText = async (prompt, temperature, max_tokens, chatId) => {
       max_tokens: max_tokens,
       temperature: temperature,
     });
-    console.log(completion);
+    // console.log(completion);
     response = completion?.data?.choices?.[0]?.message;
     const spent = (completion?.data?.usage?.total_tokens / 1000) * OPENAI_PRICE;
     if (spent) {
@@ -194,7 +194,7 @@ const textToText = async (chatId, text) => {
     MAX_TOKENS,
     chatId
   );
-  console.log("response: ", response);
+  // console.log("response: ", response);
   clearInterval(intervalId);
   if (response) {
     if (response.role === "assistant") {
