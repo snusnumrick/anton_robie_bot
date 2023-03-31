@@ -20,7 +20,7 @@ import bing from "./bing.js";
 
 dotenv.config({ override: true });
 
-let CONTEXT_SIZE = 6000;
+let CONTEXT_SIZE = 4000;
 let MAX_TOKENS = 2000;
 
 let OPENAI_PRICE = 0.002;
@@ -159,6 +159,7 @@ const getText = async (prompt, temperature, max_tokens, chatId) => {
   try {
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
+      // model: "gpt-4",
       messages: prompt,
       max_tokens: max_tokens,
       temperature: temperature,
@@ -463,10 +464,11 @@ const textToGoogle = async (chatId, msg, language_code) => {
   if (response) {
     // trim response, leaving only first CONTEXT_SIZE characters
     response = response.slice(0, CONTEXT_SIZE);
+    const saved_messages = [...messages[chatId]];
     messages[chatId].push({ role: "user", content: response });
+    messages[chatId] = trimContext(messages[chatId]);
     await textToText(chatId, msg);
-    // remove the third message from the end (original google result)
-    messages[chatId].splice(messages[chatId].length - 3, 1);
+    messages[chatId] = saved_messages ?? messages[chatId].slice(-2);
     writeContext(messages);
   } else {
     bot
