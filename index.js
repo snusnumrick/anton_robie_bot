@@ -73,10 +73,11 @@ const trimContext = (context) => {
   return new_context;
 };
 
-const whitelist = [1247166630];
+// me, TV, Denis
+const whitelist = [1247166630, 1550665398, 5271592565];
 
 bot.on("message", async (msg) => {
-  console.log(msg);
+  // console.log(msg);
   const chatId = msg.chat.id;
 
   // check if id is in whitelist
