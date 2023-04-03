@@ -73,12 +73,21 @@ const trimContext = (context) => {
   return new_context;
 };
 
+const whitelist = [1247166630];
+
 bot.on("message", async (msg) => {
-  // console.log(msg);
-  if (msg.from.username !== "Snusnumrick") {
+  console.log(msg);
+  const chatId = msg.chat.id;
+
+  // check if id is in whitelist
+  if (msg.from?.id && !whitelist.includes(msg.from.id)) {
+    console.log("User " + JSON.stringify(msg.from) + " not in whitelist");
+    bot
+      .sendMessage(chatId, "Sorry, you are not authorized to talk to me")
+      .then();
     return;
   }
-  const chatId = msg.chat.id;
+
   let text = msg.text?.toLowerCase() ?? "";
 
   if (text) {
